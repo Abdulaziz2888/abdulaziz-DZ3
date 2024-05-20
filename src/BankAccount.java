@@ -1,12 +1,27 @@
-public class LimitException extends Exception {
-    private double remainingAmount;
+public class BankAccount {
+    private double amount;
 
-    public LimitException(String message, double remainingAmount) {
-        super(message);
-        this.remainingAmount = remainingAmount;
+    public BankAccount() {
+        this.amount = 0;
     }
 
-    public double getRemainingAmount() {
-        return remainingAmount;
+    public double getAmount() {
+        return amount;
+    }
+
+    public void deposit(double sum) {
+        if (sum > 0) {
+            amount += sum;
+        } else {
+            System.out.println("Сумма должна быть положительной.");
+        }
+    }
+
+    public void withDraw(int sum) throws LimitException {
+        if (sum > amount) {
+            throw new LimitException("Запрашиваемая сумма больше, чем остаток на счете", amount);
+        } else {
+            amount -= sum;
+        }
     }
 }
